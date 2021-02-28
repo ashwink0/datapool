@@ -7,7 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import fire from '../../utils/firebase';
-import { createProject } from '../../db/createProject';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -25,8 +24,10 @@ export default function HomePage() {
 	const classes = useStyles();
 	const photoURL = fire.auth()?.currentUser?.photoURL;
 	const name = fire.auth().currentUser!.displayName;
+	const token = fire.auth().currentUser?.getIdToken();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const isMenuOpen = Boolean(anchorEl);
+
 	const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -76,11 +77,24 @@ export default function HomePage() {
 			<button
 				type="button"
 				onClick={() => {
-					fetch(
-						`/api/createProject/sdhsjadfg/${fire.auth().currentUser?.uid}`,
-					).then((r) => {
-						console.log(r.status);
-					});
+					fire
+						.auth()
+						.currentUser?.getIdToken(true)
+						.then((idToken) => {
+							fetch(
+								`/api/createProject/sdhsjadfg/${fire.auth().currentUser?.uid}`,
+								{
+									headers: {
+										Authorization: idToken,
+									},
+								},
+							).then((r) => {
+								console.log(r.status);
+							});
+						})
+						.catch((error) => {
+							// Handle error
+						});
 				}}
 			>
 				Create

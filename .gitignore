@@ -2,6 +2,8 @@
 
 credentials.ts
 
+/lib/serviceAccount.json
+
 # dependencies
 /node_modules
 /.pnp

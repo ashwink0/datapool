@@ -1,13 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createProject } from '../../../../../db/createProject';
+import { connectToDatabase } from '../../../../../middlewares/database';
+import fire from '../../../../../utils/firebase';
+import 'firebase/auth';
+import { withAuth } from '../../../../../middlewares/withAuth';
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+const handler= async (req: NextApiRequest, res: NextApiResponse) => {
 	const {
 		query: { name, uid },
 	} = req;
+	console.log(fire.auth().currentUser?.displayName);
+	const { db } = await connectToDatabase();
+	const response = await db.collection(uid as string).insertOne({ name });
 
-	createProject(uid, name).then((r) => {
-		console.log(`complete`);
-		res.status(r).end(`a`);
-	});
+	res.status(200).end(`this is a res`);
 };
+
+export default withAuth(handler);
