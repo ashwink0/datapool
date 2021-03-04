@@ -25,6 +25,7 @@
     "@material-ui/icons": "4.11.2",
     "@react-firebase/auth": "0.2.10",
     "@types/mongodb": "3.6.8",
+    "bson": "1.1.5",
     "firebase": "8.2.9",
     "firebase-admin": "9.5.0",
     "idb": "3.0.2",

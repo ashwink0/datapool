@@ -22,7 +22,7 @@ export function withAuth(
 			if (errorCode === `auth/internal-error`) {
 				error.status = 500;
 			}
-			// TODO handlle firebase admin errors in more detail
+			// TODO handle firebase admin errors in more detail
 			return res.status(error.status).json({ error: errorCode });
 		}
 

@@ -6,7 +6,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
-import fire from '../../utils/firebase';
+import AllProjects from '@/components/Home/Projects/allProjects';
+import fire from '../../../utils/firebase';
+import styles from '../../styles/ProjectGrid.module.css';
+import CreateProjectDialog from './Projects/createProjectDialog';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -24,9 +27,9 @@ export default function HomePage() {
 	const classes = useStyles();
 	const photoURL = fire.auth()?.currentUser?.photoURL;
 	const name = fire.auth().currentUser!.displayName;
-	const token = fire.auth().currentUser?.getIdToken();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const isMenuOpen = Boolean(anchorEl);
+	const [dialogOpen, setDialogOpen] = useState(false);
 
 	const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -36,6 +39,12 @@ export default function HomePage() {
 	};
 	const signOut = () => {
 		fire.auth().signOut();
+	};
+	const openCreateDialog = () => {
+		setDialogOpen(true);
+	};
+	const closeCreateDialog = () => {
+		setDialogOpen(false);
 	};
 
 	const renderMenu = (
@@ -73,32 +82,53 @@ export default function HomePage() {
 				</Toolbar>
 			</AppBar>
 			{renderMenu}
-			<p>Welcome {name}. You are now signed-in!</p>
-			<button
-				type="button"
-				onClick={() => {
-					fire
-						.auth()
-						.currentUser?.getIdToken(true)
-						.then((idToken) => {
-							fetch(
-								`/api/createProject/sdhsjadfg/${fire.auth().currentUser?.uid}`,
-								{
-									headers: {
-										Authorization: idToken,
-									},
-								},
-							).then((r) => {
-								console.log(r.status);
-							});
-						})
-						.catch((error) => {
-							// Handle error
-						});
-				}}
-			>
-				Create
-			</button>
+			<div className={styles.container}>
+				<main className={styles.main}>
+					<p>Welcome {name}. You are now signed-in!</p>
+					<button
+						type="button"
+						onClick={() => {
+							fire
+								.auth()
+								.currentUser?.getIdToken(true)
+								.then((idToken) => {
+									fetch(`/api/createProject/${fire.auth().currentUser?.uid}`, {
+										method: `POST`,
+										headers: {
+											Authorization: idToken,
+										},
+										body: JSON.stringify({
+											projectName: `project`,
+											description: `this is a desc`,
+										}),
+									}).then((r) => {
+										console.log(r.status);
+									});
+								})
+								.catch((error) => {
+									// Handle error
+								});
+						}}
+					>
+						Create
+					</button>
+					<button
+						type="button"
+						onClick={openCreateDialog}
+						className={styles.card}
+						style={{
+							backgroundColor: `white`
+						}}
+					>
+						<h3>Create Project +</h3>
+					</button>
+					<AllProjects />
+					<CreateProjectDialog
+						open={dialogOpen}
+						handleClose={closeCreateDialog}
+					/>
+				</main>
+			</div>
 		</div>
 	);
 }
