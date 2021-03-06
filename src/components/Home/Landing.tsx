@@ -8,7 +8,9 @@ import firebase from 'firebase';
 import { useState } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import fire from '../../utils/firebase';
+import IconButton from '@material-ui/core/IconButton';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import fire from '../../../utils/firebase';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -54,6 +56,13 @@ export default function Landing() {
 					<Typography variant="h6" className={classes.title}>
 						DataPool
 					</Typography>
+					<IconButton href="https://github.com/ashwink0/datapool">
+						<GitHubIcon
+							style={{
+								color: `white`,
+							}}
+						/>
+					</IconButton>
 					<Button onClick={handleOpen} color="inherit">
 						Login / Sign Up
 					</Button>

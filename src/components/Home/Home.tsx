@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import AllProjects from '@/components/Home/Projects/allProjects';
 import fire from '../../../utils/firebase';
-import styles from '../../styles/ProjectGrid.module.css';
+import styles from '../../styles/Home.module.css';
 import CreateProjectDialog from './Projects/createProjectDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -117,7 +117,7 @@ export default function HomePage() {
 						onClick={openCreateDialog}
 						className={styles.card}
 						style={{
-							backgroundColor: `white`
+							backgroundColor: `white`,
 						}}
 					>
 						<h3>Create Project +</h3>

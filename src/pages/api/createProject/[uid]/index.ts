@@ -9,12 +9,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		body: { projectName, description },
 	} = req;
 	const { db } = await connectToDatabase();
-	const response = await db.collection(uid as string).insertOne({
-		projectName: JSON.parse(req.body).projectName,
-		description: JSON.parse(req.body).description,
-		databases: [],
-	});
-	res.status(200).json({ status: 200 });
+	const response = await db.collection(uid as string).insertOne(
+		{
+			projectName: JSON.parse(req.body).projectName,
+			description: JSON.parse(req.body).description,
+			databases: [],
+		},
+		async (err, docsInserted) => {
+			res.status(200).json({ status: 200, id: docsInserted.insertedId });
+		},
+	);
 };
 
 export default withAuth(handler);

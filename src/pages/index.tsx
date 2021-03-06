@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import fire from '../../utils/firebase';
 import Head from 'next/head'
 import Loading from "@/components/Home/Loading";
-import Landing from "@/components/Landing";
+import Landing from "@/components/Home/Landing";
 import HomePage from "@/components/Home/Home";
 
 export default function Home() {
