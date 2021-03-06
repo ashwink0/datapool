@@ -3,7 +3,7 @@ import { ObjectId } from 'bson';
 export type project = {
 	projectName: string;
 	description: string;
-	id: ObjectId;
+	_id: ObjectId;
 	databases: Array<Database>;
 };
 

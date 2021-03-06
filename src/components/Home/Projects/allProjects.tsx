@@ -33,7 +33,8 @@ export default function AllProjects() {
 		<div className={styles.grid}>
 			{status}
 			{projects.map((item: project) => (
-				<a href="/" className={styles.card}>
+				// eslint-disable-next-line no-underscore-dangle
+				<a href={`/${item._id}`} className={styles.card}>
 					<h3>{item.projectName}</h3>
 					<p>{item.description}</p>
 				</a>
