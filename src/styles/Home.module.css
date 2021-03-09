@@ -91,9 +91,10 @@
 	height: 150px;
 	min-width: 350px;
 	overflow: auto;
+	word-break: break-all;
   border: 1px solid #c1c1c1;
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.4s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease;
 }
 
 .card:hover,

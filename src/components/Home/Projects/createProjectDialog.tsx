@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { CircularProgress } from '@material-ui/core';
 import fire from '../../../../utils/firebase';
 
@@ -20,21 +20,25 @@ export default function CreateProjectDialog(props: propTypes) {
 	const [buttonContent, setButtonContent] = useState<any>(`Create`);
 	const [name, setName] = useState(``);
 	const [description, setDescription] = useState(``);
-	const router = useRouter()
+	const router = useRouter();
 	const handleDialogClose = () => {
 		props.handleClose();
 	};
 	const handleChange = (event: any) => {
 		if (event.target.name === `name`) {
-			setName(event.target.value);
+			if (event.target.value.length < 40) {
+				setName(event.target.value);
+			}
 		} else if (event.target.name === `description`) {
-			setDescription(event.target.value);
+			if (event.target.value.length < 100) {
+				setDescription(event.target.value);
+			}
 		}
 	};
 	const createProject = () => {
-		if (name.length>0) {
+		if (name.length > 0) {
 			setCreated(true);
-			setButtonContent(<CircularProgress/>);
+			setButtonContent(<CircularProgress />);
 			fire
 				.auth()
 				.currentUser?.getIdToken(true)

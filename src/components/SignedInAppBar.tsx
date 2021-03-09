@@ -5,8 +5,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 import fire from '../../utils/firebase';
-import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,6 +27,7 @@ export default function SignedInAppBar() {
 	const name = fire.auth().currentUser!.displayName;
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const isMenuOpen = Boolean(anchorEl);
+	const router = useRouter();
 	const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -34,6 +36,7 @@ export default function SignedInAppBar() {
 	};
 	const signOut = () => {
 		fire.auth().signOut();
+		router.push(`/`);
 	};
 	const renderMenu = (
 		<Menu
@@ -59,9 +62,11 @@ export default function SignedInAppBar() {
 						justifyContent: `space-between`,
 					}}
 				>
-					<Typography variant="h6" className={classes.title}>
-						Dashboard
-					</Typography>
+					<a href="/">
+						<Typography variant="h6" className={classes.title}>
+							DataPool | Dashboard
+						</Typography>
+					</a>
 					<Avatar
 						onClick={handleProfileMenuOpen}
 						alt="Profile"

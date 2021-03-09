@@ -12,7 +12,7 @@ export default function PageHead() {
 			<meta property="og:title" content="DataPool" key="title" />
 			<meta
 				property="og:description"
-				content="Easily interact with all of your databases."
+				content="An efficient and intuitive tool to interact with all of your databases."
 			/>
 			<meta name="twitter:card" content="summary" />
 			<meta name="twitter:creator" content="@ashwin__" />
