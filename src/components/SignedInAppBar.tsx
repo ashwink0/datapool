@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-import { useRouter } from 'next/router';
 import fire from '../../utils/firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +26,6 @@ export default function SignedInAppBar() {
 	const name = fire.auth().currentUser!.displayName;
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const isMenuOpen = Boolean(anchorEl);
-	const router = useRouter();
 	const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -36,7 +34,6 @@ export default function SignedInAppBar() {
 	};
 	const signOut = () => {
 		fire.auth().signOut();
-		router.push(`/`);
 	};
 	const renderMenu = (
 		<Menu
