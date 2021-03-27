@@ -66,7 +66,6 @@ export default function SignedInAppBar() {
 					</a>
 					<Avatar
 						onClick={handleProfileMenuOpen}
-						alt={name}
 						src={photoURL as string}
 					/>
 				</Toolbar>
