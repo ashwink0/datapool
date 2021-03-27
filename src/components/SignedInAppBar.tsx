@@ -51,7 +51,7 @@ export default function SignedInAppBar() {
 
 	return (
 		<div>
-			<AppBar position="static">
+			<AppBar position="fixed">
 				<Toolbar
 					style={{
 						display: `flex`,
@@ -66,7 +66,7 @@ export default function SignedInAppBar() {
 					</a>
 					<Avatar
 						onClick={handleProfileMenuOpen}
-						alt="Profile"
+						alt={name}
 						src={photoURL as string}
 					/>
 				</Toolbar>

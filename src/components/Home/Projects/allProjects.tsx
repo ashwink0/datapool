@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import fire from '../../../../utils/firebase';
-import { project } from '../../../../utils/types';
+import { projectType } from '../../../../utils/types';
 import styles from '../../../styles/Home.module.css';
 
 export default function AllProjects() {
@@ -32,7 +32,7 @@ export default function AllProjects() {
 	return (
 		<div className={styles.grid}>
 			{status}
-			{projects.map((item: project) => (
+			{projects.map((item: projectType) => (
 				// eslint-disable-next-line no-underscore-dangle
 				<a href={`/${item._id}`} className={styles.card}>
 					<h3>{item.projectName}</h3>

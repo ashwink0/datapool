@@ -4,7 +4,13 @@ export default function Landing() {
 	return (
 		<div>
 			<LandingAppBar />
-			<h1>Landing</h1>
+			<div
+				style={{
+					marginTop: `100px`,
+				}}
+			>
+				<h1>Landing</h1>
+			</div>
 		</div>
 	);
 }

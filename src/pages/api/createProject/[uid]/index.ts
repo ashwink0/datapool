@@ -14,6 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			projectName: JSON.parse(req.body).projectName,
 			description: JSON.parse(req.body).description,
 			databases: [],
+			timestamp: new Date().toISOString(),
 		},
 		async (err, docsInserted) => {
 			res.status(200).json({ status: 200, id: docsInserted.insertedId });

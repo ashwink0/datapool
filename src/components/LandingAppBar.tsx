@@ -46,7 +46,7 @@ export default function LandingAppBar() {
 	};
 	return (
 		<div>
-			<AppBar position="static">
+			<AppBar position="fixed">
 				<Toolbar
 					style={{
 						display: `flex`,

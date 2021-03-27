@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { CircularProgress } from '@material-ui/core';
 import Alert from '@/components/Alert';
-import fire from '../../../../utils/firebase';
+import fire from '../../../../../utils/firebase';
 
 type propTypes = {
 	open: boolean;

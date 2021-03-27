@@ -2,17 +2,18 @@ import SignedInAppBar from '@/components/SignedInAppBar';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@material-ui/core';
-import { ObjectId } from 'bson';
+import { projectType, Database } from '../../../utils/types';
 import fire from '../../../utils/firebase';
 
 export default function ProjectPage() {
 	const router = useRouter();
 	const { project } = router.query;
 
-	const [projectObj, setProjectObj] = useState({
+	const [projectObj, setProjectObj] = useState<projectType>({
 		projectName: ``,
 		description: ``,
-		_id: ObjectId,
+		timestamp: ``,
+		_id: ``,
 		databases: [],
 	});
 	const [status, setStatus] = useState(<CircularProgress />);
@@ -42,7 +43,7 @@ export default function ProjectPage() {
 					});
 			})
 			.catch((error) => {
-				setStatus(<h1>An error occured</h1>);
+				setStatus(<h1>An error occurred</h1>);
 			});
 	}, []);
 	return (
@@ -52,7 +53,17 @@ export default function ProjectPage() {
 			{status}
 			<h3>name: {projectObj.projectName}</h3>
 			<h3>description: {projectObj.description}</h3>
+			<h3>timestamp: {projectObj.timestamp}</h3>
 			<h3>Id: {project}</h3>
+			{projectObj.databases.length > 0 ? (
+				projectObj.databases.map((item) => (
+					<h3>
+						{item.name} {item.type} {item.url}
+					</h3>
+				))
+			) : (
+				<h3>none</h3>
+			)}
 		</div>
 	);
 }

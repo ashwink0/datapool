@@ -11,7 +11,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	} = req;
 	const { db } = await connectToDatabase();
 	let projectObj = {};
-	console.log(JSON.parse(req.body).id);
 	let response;
 	try {
 		response = await db.collection(uid as string).findOne({
