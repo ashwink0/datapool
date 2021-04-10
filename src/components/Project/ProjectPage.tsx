@@ -2,8 +2,10 @@ import SignedInAppBar from '@/components/SignedInAppBar';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@material-ui/core';
+import CreateDatabaseDialog from '@/components/Project/Databases/Creation/CreateDatabaseDialog';
 import { projectType, Database } from '../../../utils/types';
 import fire from '../../../utils/firebase';
+import Button from "@material-ui/core/Button";
 
 export default function ProjectPage() {
 	const router = useRouter();
@@ -17,6 +19,14 @@ export default function ProjectPage() {
 		databases: [],
 	});
 	const [status, setStatus] = useState(<CircularProgress />);
+	const [dialogOpen, setDialogOpen] = useState(false);
+
+	const openCreateDialog = () => {
+		setDialogOpen(true);
+	};
+	const closeCreateDialog = () => {
+		setDialogOpen(false);
+	};
 
 	useEffect(() => {
 		fire
@@ -64,6 +74,8 @@ export default function ProjectPage() {
 			) : (
 				<h3>none</h3>
 			)}
+			<Button onClick={openCreateDialog}>Add a database</Button>
+			<CreateDatabaseDialog open={dialogOpen} handleClose={closeCreateDialog} />
 		</div>
 	);
 }

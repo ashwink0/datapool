@@ -5,10 +5,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Snackbar from '@material-ui/core/Snackbar';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import TextField from '@material-ui/core/TextField';
-import { useState } from 'react';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { CircularProgress } from '@material-ui/core';
 import Alert from '@/components/Alert';
@@ -19,12 +20,13 @@ type propTypes = {
 	handleClose: Function;
 };
 
-export default function CreateProjectDialog(props: propTypes) {
+export default function CreateDatabaseDialog(props: propTypes) {
 	const [created, setCreated] = useState(false);
 	const [buttonContent, setButtonContent] = useState<any>(`Create`);
 	const [name, setName] = useState(``);
 	const [description, setDescription] = useState(``);
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [activeStep, setActiveStep] = useState(0);
 	const router = useRouter();
 	const handleDialogClose = () => {
 		props.handleClose();
@@ -83,6 +85,28 @@ export default function CreateProjectDialog(props: propTypes) {
 			setSnackbarOpen(true);
 		}
 	};
+	function getSteps() {
+		return [`Select database type`, `Enter database Information`];
+	}
+
+	function getStepContent(step: number) {
+		switch (step) {
+			case 0:
+				return `Select database type`;
+			case 1:
+				return `Enter database Information`;
+			default:
+				return ``;
+		}
+	}
+
+	const handleBack = () => {
+		setActiveStep((prevActiveStep) => prevActiveStep - 1);
+	};
+
+	const handleNext = () => {
+		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	};
 
 	return (
 		<Dialog
@@ -92,30 +116,24 @@ export default function CreateProjectDialog(props: propTypes) {
 			onClose={handleDialogClose}
 			aria-labelledby="form-dialog-title"
 		>
-			<DialogTitle id="form-dialog-title">Create a Project</DialogTitle>
+			<DialogTitle id="form-dialog-title">Create a Database</DialogTitle>
 			<DialogContent>
-				<DialogContentText>Start a new DataPool project</DialogContentText>
-				<TextField
-					autoFocus
-					margin="dense"
-					id="name"
-					name="name"
-					label="Name"
-					type="text"
-					onChange={handleChange}
-					value={name}
-					fullWidth
-				/>
-				<TextField
-					margin="dense"
-					id="description"
-					name="description"
-					label="Description"
-					type="text"
-					onChange={handleChange}
-					value={description}
-					fullWidth
-				/>
+				<DialogContentText>Add a database to your project</DialogContentText>
+				<Stepper activeStep={activeStep}>
+					{getSteps().map((label: any) => {
+						const stepProps: { completed?: boolean } = {};
+						const labelProps: { optional?: React.ReactNode } = {};
+						return (
+							<Step key={label} {...stepProps}>
+								<StepLabel {...labelProps}>{label}</StepLabel>
+							</Step>
+						);
+					})}
+				</Stepper>
+				<Button disabled={activeStep === 0} onClick={handleBack}>
+					Back
+				</Button>
+				<Button onClick={handleNext}>Inc</Button>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={handleDialogClose} color="primary">

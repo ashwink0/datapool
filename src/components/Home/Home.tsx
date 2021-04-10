@@ -10,7 +10,7 @@ import AllProjects from '@/components/Home/Projects/allProjects';
 import fire from '../../../utils/firebase';
 import styles from '../../styles/Home.module.css';
 import CreateProjectDialog from './Projects/createProjectDialog';
-import SignedInAppBar from "@/components/SignedInAppBar";
+import SignedInAppBar from '@/components/SignedInAppBar';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

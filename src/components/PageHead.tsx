@@ -16,6 +16,10 @@ export default function PageHead() {
 			/>
 			<meta name="twitter:card" content="summary" />
 			<meta name="twitter:creator" content="@ashwin__" />
+			<meta
+				name="google-site-verification"
+				content="kNlHUmvPEuuaQNIt1yporg1-f3vpLHMmBAcA7wXqS7U"
+			/>
 		</Head>
 	);
 }
