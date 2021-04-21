@@ -29,6 +29,10 @@ export default function ProjectPage() {
 	};
 
 	useEffect(() => {
+		if (project?.length !== 24) {
+			setStatus(<h1>Project does not exist</h1>);
+			return;
+		}
 		fire
 			.auth()
 			.currentUser?.getIdToken(true)
